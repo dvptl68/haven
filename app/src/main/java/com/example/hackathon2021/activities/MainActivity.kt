@@ -1,6 +1,7 @@
 package com.example.hackathon2021.activities
 
 import android.annotation.SuppressLint
+import android.location.Location
 import android.os.Bundle
 import android.view.MenuItem
 
@@ -21,6 +22,8 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.example.hackathon2021.util.LocationsJSON
+import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
 
@@ -62,11 +65,16 @@ class MainActivity : AppCompatActivity() {
             tab.text = viewPagerAdapter.getTitle(position)
         }.attach()
 
-        val fusedLocationClient: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-        fusedLocationClient.lastLocation
-            .addOnSuccessListener { location ->
-                latitude = location.latitude
-                longitude = location.longitude
+        LocationServices.getFusedLocationProviderClient(this).lastLocation
+            .addOnSuccessListener { location : Location ->
+                LocationsJSON.setCoords(location.latitude, location.longitude)
+            }
+            .addOnFailureListener() { e : Exception ->
+                println("ERROR: $e\nSetting default coordinates to the Ohio Union")
+                LocationsJSON.setDefaultCoords()
+            }
+            .addOnCompleteListener {
+                LocationsJSON.getLocations("food pantry")
             }
     }
 
