@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         viewPagerAdapter.addFragment(FoodFragment(), getString(R.string.food))
         viewPagerAdapter.addFragment(ShelterFragment(), getString(R.string.shelter))
         viewPagerAdapter.addFragment(HealthFragment(), getString(R.string.health))
-        viewPagerAdapter.addFragment(ResourcesFragment(), getString(R.string.resources))
+        viewPagerAdapter.addFragment(HotlinesFragment(), getString(R.string.hotlines))
         viewPagerAdapter.addFragment(WorkFragment(), getString(R.string.work))
 
         // Set the adapter.
@@ -62,13 +62,11 @@ class MainActivity : AppCompatActivity() {
             tab.text = viewPagerAdapter.getTitle(position)
         }.attach()
 
-        lateinit var fusedLocationClient: FusedLocationProviderClient
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        val fusedLocationClient: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         fusedLocationClient.lastLocation
             .addOnSuccessListener { location ->
                 latitude = location.latitude
                 longitude = location.longitude
-                println("coords: " + latitude + ", " + longitude)
             }
     }
 

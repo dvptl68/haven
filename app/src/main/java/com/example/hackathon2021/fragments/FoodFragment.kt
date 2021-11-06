@@ -5,7 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.hackathon2021.R
+import com.example.hackathon2021.adapters.ResultAdapter
 
 class FoodFragment : Fragment() {
     override fun onCreateView(
@@ -14,6 +17,29 @@ class FoodFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment.
-        return inflater.inflate(R.layout.fragment_food, container, false)
+        val view = inflater.inflate(R.layout.fragment_food, container, false)
+
+        // Dummy data.
+        val dummyData = listOf(
+            listOf("Star House", "Drop-in center, food, clothing, mental health therapy, healthca" +
+                    "re, laundry, mailbox, computer lab, workforce, educational and enrichment op" +
+                    "portunities, and more", "(614) 826-5868", "1.1 miles away", "Open until 10:0" +
+                    "0 PM"),
+            listOf("Stonewall Columbus", "Advocacy and support", "(614) 299-7764", "0.8 miles away",
+                    "Closed until Monday at 10:00 AM"),
+            listOf("Dress for Success", "Professional attire", "(614) 291-5420", "0.8 miles away",
+                    "Closed until Monday at 8:30 AM"),
+            listOf("Huckleberry House", "Crisis shelter, hot meals, clothing, counseling, life sk" +
+                    "ills, and more", "(614) 294-5553)", "1.4 miles away", "Closed until Monday a" +
+                    "t 12:00 PM")
+        )
+
+        // Apply the ResultAdapter to the RecyclerView.
+        val resultAdapter = ResultAdapter(view.context, dummyData)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recycler)
+        recyclerView.adapter = resultAdapter
+        recyclerView.layoutManager = LinearLayoutManager(context)
+
+        return view
     }
 }
