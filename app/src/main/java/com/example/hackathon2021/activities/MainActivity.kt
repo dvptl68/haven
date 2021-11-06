@@ -1,5 +1,6 @@
 package com.example.hackathon2021.activities
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.MenuItem
 
@@ -18,9 +19,16 @@ import com.example.hackathon2021.fragments.*
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
-class MainActivity : AppCompatActivity() {
-    private lateinit var drawer: DrawerLayout
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 
+class MainActivity : AppCompatActivity() {
+
+    private lateinit var drawer: DrawerLayout
+    private var latitude = 0.0
+    private var longitude = 0.0
+
+    @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -53,6 +61,15 @@ class MainActivity : AppCompatActivity() {
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = viewPagerAdapter.getTitle(position)
         }.attach()
+
+        lateinit var fusedLocationClient: FusedLocationProviderClient
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        fusedLocationClient.lastLocation
+            .addOnSuccessListener { location ->
+                latitude = location.latitude
+                longitude = location.longitude
+                println("coords: " + latitude + ", " + longitude)
+            }
     }
 
     override fun onBackPressed() {
