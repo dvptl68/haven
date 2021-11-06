@@ -1,10 +1,16 @@
 <resources>
-    <string name="app_name">hackathon2021</string>
+    <string name="app_name">Haven</string>
     <string name="close">Close</string>
+    <string name="dummy_description">Drop-in center, food, clothing, mental healthy therapy,
+        healthcare, laundry, mailbox, computer lab, workforce</string>
+    <string name="dummy_email">https://www.starhouse.us/contact</string>
+    <string name="dummy_location">Star House</string>
+    <string name="dummy_phone_number">(614) 299-7764</string>
     <string name="food">Food</string>
     <string name="health">Health</string>
     <string name="open">Open</string>
     <string name="resources">Resources</string>
     <string name="shelter">Shelter</string>
     <string name="work">Work</string>
+    <string name="dummy_hours">Open until 10:00 PM</string>
 </resources>
