@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">hackathon2021</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="close">Close</string>
+    <string name="food">Food</string>
+    <string name="health">Health</string>
+    <string name="open">Open</string>
+    <string name="resources">Resources</string>
+    <string name="shelter">Shelter</string>
+    <string name="work">Work</string>
 </resources>
