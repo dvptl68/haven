@@ -19,13 +19,14 @@ class ResultAdapter(private val context: Context, private val results: List<List
 
         // Set the item description, email, location, and phone number.
         holder.textDescription.text = result[1]
-        holder.textDistance.text = result[3]
+        holder.textAddress.text = result[3]
+        holder.textDistance.text = result[4]
         holder.textLocation.text = result[0]
         holder.textPhoneNumber.text = result[2]
 
         // Set the item hours and corresponding color.
-        holder.textHours.text = result[4]
-        if (result[4][0] == 'O')
+        holder.textHours.text = result[5]
+        if (result[5][0] == 'O')
             holder.textHours.setTextColor(ContextCompat.getColor(context, android.R.color.holo_green_dark))
         else
             holder.textHours.setTextColor(ContextCompat.getColor(context, android.R.color.holo_red_dark))
@@ -35,6 +36,7 @@ class ResultAdapter(private val context: Context, private val results: List<List
 
     inner class ResultViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textDescription: TextView = itemView.findViewById(R.id.text_description)
+        val textAddress: TextView = itemView.findViewById(R.id.text_address)
         val textDistance: TextView = itemView.findViewById(R.id.text_distance)
         val textHours: TextView = itemView.findViewById(R.id.text_hours)
         val textLocation: TextView = itemView.findViewById(R.id.text_location)

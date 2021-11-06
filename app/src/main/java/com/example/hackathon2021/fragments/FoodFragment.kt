@@ -23,14 +23,14 @@ class FoodFragment : Fragment() {
         val dummyData = listOf(
             listOf("Star House", "Drop-in center, food, clothing, mental health therapy, healthca" +
                     "re, laundry, mailbox, computer lab, workforce, educational and enrichment op" +
-                    "portunities, and more", "(614) 826-5868", "1.1 miles away", "Open until 10:0" +
+                    "portunities, and more", "(614) 826-5868", "123 First St", "1.1 miles away", "Open until 10:0" +
                     "0 PM"),
-            listOf("Stonewall Columbus", "Advocacy and support", "(614) 299-7764", "0.8 miles away",
+            listOf("Stonewall Columbus", "Advocacy and support", "(614) 299-7764", "432 One Ave", "0.8 miles away",
                     "Closed until Monday at 10:00 AM"),
-            listOf("Dress for Success", "Professional attire", "(614) 291-5420", "0.8 miles away",
+            listOf("Dress for Success", "Professional attire", "(614) 291-5420", "980 Dev St", "0.8 miles away",
                     "Closed until Monday at 8:30 AM"),
             listOf("Huckleberry House", "Crisis shelter, hot meals, clothing, counseling, life sk" +
-                    "ills, and more", "(614) 294-5553)", "1.4 miles away", "Closed until Monday a" +
+                    "ills, and more", "(614) 294-5553", "625 Ben Ave", "1.4 miles away", "Closed until Monday a" +
                     "t 12:00 PM")
         )
 

@@ -77,6 +77,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -85,16 +86,44 @@
                 <ImageView
                     android:layout_width="16dp"
                     android:layout_height="16dp"
-                    android:layout_gravity="center_vertical"
                     android:layout_marginRight="12dp"
                     android:src="@drawable/ic_baseline_distance_24"
                     tools:ignore="ContentDescription,RtlHardcoded" />
 
-                <TextView
-                    android:id="@+id/text_distance"
+<!--                <ImageView-->
+<!--                    android:layout_width="16dp"-->
+<!--                    android:layout_height="16dp"-->
+<!--                    android:layout_marginRight="12dp"-->
+<!--                    android:src="@drawable/ic_baseline_description_24"-->
+<!--                    tools:ignore="ContentDescription,RtlHardcoded" />-->
+
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/dummy_distance" />
+                    android:layout_marginBottom="0dp"
+                    tools:ignore="UseCompoundDrawables">
+
+                    <TextView
+                        android:orientation="vertical"
+                        android:id="@+id/text_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dummy_address" />
+
+                    <TextView
+                        android:id="@+id/text_distance"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dummy_distance" />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    tools:ignore="UseCompoundDrawables">
+                </LinearLayout>
 
             </LinearLayout>
 
