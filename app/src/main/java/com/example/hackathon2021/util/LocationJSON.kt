@@ -9,8 +9,6 @@ object LocationsJSON {
     private var latitude = 0.0
     private var longitude = 0.0
     private var format = "json"
-    private var radius = 8000
-    private var ranking = "distance"
     private var key = "AIzaSyDL4XY2UBOfKnK1BZWVU5X-3GCvxoonEvc"
 
     init {  }
@@ -25,12 +23,14 @@ object LocationsJSON {
         longitude = -83.0084521
     }
 
-    fun getLocations(query: String) : List<List<String>> {
+    fun getLocations(query: String, radius : Int) : List<List<String>> {
 
+        // query param becomes description, since we have no way to get that
+        // radius param should be in miles (converted to meters for api call)
         val genURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/$format" +
                 "?keyword=${query.replace(" ", "+")}" +
                 "&location=$latitude%2C$longitude" +
-                "&radius=$radius" +
+                "&radius=${radius * 1600}" +
                 "&key=$key"
 
         val jsonObj = JSONObject(makeRequest(genURL))
@@ -39,7 +39,6 @@ object LocationsJSON {
         val data: MutableList<MutableList<String>> = mutableListOf()
         for (i in 0 until res.length() - 1) {
             val itemData = getDetails(res.getJSONObject(i).getString("place_id"), query)
-            println(itemData)
             data.add(itemData)
         }
 
@@ -70,7 +69,11 @@ object LocationsJSON {
         itemData.add("${String.format("%.2f", calcDistance(latitude, longitude, loc.getString("lat").toDouble(), loc.getString("lng").toDouble()))} miles")
         itemData.add(
             if (res.has("opening_hours") && res.getJSONObject("opening_hours").has("open_now")) {
-                res.getJSONObject("opening_hours").getString("open_now")
+                if (res.getJSONObject("opening_hours").getString("open_now") == "true") {
+                    "Open"
+                } else {
+                    "Closed"
+                }
             } else {
                 "Closed"
             }
@@ -79,7 +82,7 @@ object LocationsJSON {
         return itemData
     }
 
-    private fun calcDistance (lat1 : Double, long1 : Double, lat2 : Double, long2 : Double) : Double {
+    private fun calcDistance(lat1 : Double, long1 : Double, lat2 : Double, long2 : Double) : Double {
 
         fun toRad (point : Double) : Double {
             return point / (180 / PI)

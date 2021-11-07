@@ -29,8 +29,6 @@ import java.lang.Exception
 class MainActivity : AppCompatActivity() {
 
     private lateinit var drawer: DrawerLayout
-    private var latitude = 0.0
-    private var longitude = 0.0
 
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,8 +74,22 @@ class MainActivity : AppCompatActivity() {
                 LocationsJSON.setDefaultCoords()
             }
             .addOnCompleteListener {
+                lateinit var foodData : List<List<String>>
+                lateinit var healthData : List<List<String>>
+                lateinit var shelterData : List<List<String>>
+                lateinit var workData : List<List<String>>
                 GlobalScope.launch {
-                    LocationsJSON.getLocations("Food Pantry")
+                    foodData = LocationsJSON.getLocations("Food Pantry", 5)
+                    healthData = LocationsJSON.getLocations("Health Care", 15)
+                    shelterData = LocationsJSON.getLocations("Shelter", 10)
+                    workData = LocationsJSON.getLocations("Employment", 20)
+                }.invokeOnCompletion {
+                    println("Data retrieval complete")
+                    println("food: $foodData")
+                    println("health: $healthData")
+                    println("shelter: $shelterData")
+                    println("work: $workData")
+                    // somehow update the UI elements with the received data
                 }
             }
     }
