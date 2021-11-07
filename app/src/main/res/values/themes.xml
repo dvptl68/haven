@@ -22,8 +22,14 @@
         <item name="color">@color/purple_500</item>
     </style>
 
+    <!-- Overrides the text style of the navigation drawer. -->
+    <style name="DrawerTextStyle" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@color/purple_500</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
     <!-- Overrides the default tab design of TabLayout. -->
     <style name="TabTextStyle" parent="TextAppearance.Design.Tab">
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">11sp</item>
     </style>
 </resources>

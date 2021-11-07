@@ -25,11 +25,21 @@
             app:contentInsetRight="0dp"
             app:contentInsetEnd="0dp">
 
-            <TextView
+            <!--<TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:drawableLeft="@drawable/ic_haven_logo"
+                tools:ignore="RtlHardcoded,UseCompatTextViewDrawableXml" />-->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/poppins_bold"
+                android:text="@string/app_name"
+                android:textColor="@color/purple_500"
+                android:textSize="22sp"
                 tools:ignore="RtlHardcoded,UseCompatTextViewDrawableXml" />
 
         </androidx.appcompat.widget.Toolbar>
@@ -51,6 +61,10 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:clipToPadding="false" />
+        android:clipToPadding="false"
+        app:itemIconTint="@color/purple_500"
+        app:itemTextAppearance="@style/DrawerTextStyle"
+        app:itemTextColor="@color/purple_500"
+        app:menu="@menu/menu_nav" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -92,13 +92,6 @@
                     android:src="@drawable/ic_baseline_distance_24"
                     tools:ignore="ContentDescription,RtlHardcoded" />
 
-<!--                <ImageView-->
-<!--                    android:layout_width="16dp"-->
-<!--                    android:layout_height="16dp"-->
-<!--                    android:layout_marginRight="12dp"-->
-<!--                    android:src="@drawable/ic_baseline_description_24"-->
-<!--                    tools:ignore="ContentDescription,RtlHardcoded" />-->
-
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
@@ -107,11 +100,13 @@
                     tools:ignore="UseCompoundDrawables">
 
                     <TextView
-                        android:includeFontPadding="false"
-                        android:orientation="vertical"
                         android:id="@+id/text_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:includeFontPadding="false"
+                        android:orientation="vertical"
+                        android:ellipsize="end"
+                        android:maxLines="1"
                         android:text="@string/dummy_address" />
 
                     <TextView
@@ -120,14 +115,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/dummy_distance" />
+
                 </LinearLayout>
+
                 <LinearLayout
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="vertical"
                     android:layout_marginBottom="8dp"
-                    tools:ignore="UseCompoundDrawables">
-                </LinearLayout>
+                    tools:ignore="UseCompoundDrawables" />
 
             </LinearLayout>
 

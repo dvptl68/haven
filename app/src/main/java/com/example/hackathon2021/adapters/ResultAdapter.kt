@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+
 import com.example.hackathon2021.R
 
 class ResultAdapter(private val context: Context, private val results: List<List<String>>) : RecyclerView.Adapter<ResultAdapter.ResultViewHolder>() {
@@ -17,9 +19,9 @@ class ResultAdapter(private val context: Context, private val results: List<List
     override fun onBindViewHolder(holder: ResultViewHolder, position: Int) {
         val result = results[position]
 
-        // Set the item description, email, location, and phone number.
-        holder.textDescription.text = result[1]
+        // Set the item address, description, distance, location, and phone number.
         holder.textAddress.text = result[3]
+        holder.textDescription.text = result[1]
         holder.textDistance.text = result[4]
         holder.textLocation.text = result[0]
         holder.textPhoneNumber.text = result[2]
@@ -35,8 +37,8 @@ class ResultAdapter(private val context: Context, private val results: List<List
     override fun getItemCount(): Int = results.size
 
     inner class ResultViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val textDescription: TextView = itemView.findViewById(R.id.text_description)
         val textAddress: TextView = itemView.findViewById(R.id.text_address)
+        val textDescription: TextView = itemView.findViewById(R.id.text_description)
         val textDistance: TextView = itemView.findViewById(R.id.text_distance)
         val textHours: TextView = itemView.findViewById(R.id.text_hours)
         val textLocation: TextView = itemView.findViewById(R.id.text_location)
