@@ -20,7 +20,6 @@ import com.example.hackathon2021.fragments.*
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
-import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.example.hackathon2021.util.LocationsJSON
 import java.lang.Exception
@@ -65,6 +64,7 @@ class MainActivity : AppCompatActivity() {
             tab.text = viewPagerAdapter.getTitle(position)
         }.attach()
 
+        // Get location info
         LocationServices.getFusedLocationProviderClient(this).lastLocation
             .addOnSuccessListener { location : Location ->
                 LocationsJSON.setCoords(location.latitude, location.longitude)
@@ -72,9 +72,6 @@ class MainActivity : AppCompatActivity() {
             .addOnFailureListener() { e : Exception ->
                 println("ERROR: $e\nSetting default coordinates to the Ohio Union")
                 LocationsJSON.setDefaultCoords()
-            }
-            .addOnCompleteListener {
-                LocationsJSON.getLocations("food pantry")
             }
     }
 

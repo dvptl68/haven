@@ -25,26 +25,46 @@ object LocationsJSON {
         longitude = -83.0084521
     }
 
-    fun getLocations(query: String) {
+    fun getLocations(query: String) : List<List<String>> {
 
-        var genURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/$format" +
+        val genURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/$format" +
                 "?keyword=${query.replace(" ", "+")}" +
                 "&location=$latitude%2C$longitude" +
                 "&radius=$radius" +
                 "&key=$key"
-        println(genURL)
 
-        GlobalScope.launch {
-            val res = URL(genURL).readText()
-            parseResponse(res)
-        }
+        // needs to be async - can't do it on main thread
+        val res = URL(genURL).readText()
+        return parseResponse(res)
     }
 
-    private fun parseResponse(json: String) : List<List<String>>{
+    private fun parseResponse(jsonString: String) : List<List<String>>{
 
-        var data: MutableList<MutableList<String>> = mutableListOf()
-        data.add(mutableListOf("a", "b"))
-        println(data)
+        val data: MutableList<MutableList<String>> = mutableListOf()
+
+        val jsonObj = JSONObject(jsonString)
+        val results = jsonObj.getJSONArray("results")
+
+        for (i in 0 until results.length() - 1) {
+
+            val itemData: MutableList<String> = mutableListOf()
+            val name = results.getJSONObject(i).getString("name")
+            val desc = "desc"
+            val number = "number"
+            val address = results.getJSONObject(i).getString("vicinity")
+            val distance = "dist"
+//            val open = results.getJSONObject(i).getJSONObject("opening_hours").getString("open_now")
+            val open = "open"
+
+            itemData.add(name)
+            itemData.add(desc)
+            itemData.add(number)
+            itemData.add(address)
+            itemData.add(distance)
+            itemData.add(open)
+
+            data.add(itemData)
+        }
 
         return data
     }
