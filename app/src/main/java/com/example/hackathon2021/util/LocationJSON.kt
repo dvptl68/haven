@@ -1,9 +1,8 @@
 package com.example.hackathon2021.util
 
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import java.net.URL
 import org.json.*
+import kotlin.math.*
 
 object LocationsJSON {
 
@@ -11,6 +10,7 @@ object LocationsJSON {
     private var longitude = 0.0
     private var format = "json"
     private var radius = 8000
+    private var ranking = "distance"
     private var key = "AIzaSyDL4XY2UBOfKnK1BZWVU5X-3GCvxoonEvc"
 
     init {  }
@@ -33,39 +33,78 @@ object LocationsJSON {
                 "&radius=$radius" +
                 "&key=$key"
 
-        // needs to be async - can't do it on main thread
-        val res = URL(genURL).readText()
-        return parseResponse(res)
-    }
+        val jsonObj = JSONObject(makeRequest(genURL))
 
-    private fun parseResponse(jsonString: String) : List<List<String>>{
-
+        val res = jsonObj.getJSONArray("results")
         val data: MutableList<MutableList<String>> = mutableListOf()
-
-        val jsonObj = JSONObject(jsonString)
-        val results = jsonObj.getJSONArray("results")
-
-        for (i in 0 until results.length() - 1) {
-
-            val itemData: MutableList<String> = mutableListOf()
-            val name = results.getJSONObject(i).getString("name")
-            val desc = "desc"
-            val number = "number"
-            val address = results.getJSONObject(i).getString("vicinity")
-            val distance = "dist"
-//            val open = results.getJSONObject(i).getJSONObject("opening_hours").getString("open_now")
-            val open = "open"
-
-            itemData.add(name)
-            itemData.add(desc)
-            itemData.add(number)
-            itemData.add(address)
-            itemData.add(distance)
-            itemData.add(open)
-
+        for (i in 0 until res.length() - 1) {
+            val itemData = getDetails(res.getJSONObject(i).getString("place_id"), query)
+            println(itemData)
             data.add(itemData)
         }
 
         return data
+    }
+
+    private fun getDetails(placeID : String, query: String) : MutableList<String> {
+
+        val genURL = "https://maps.googleapis.com/maps/api/place/details/$format" +
+                "?placeid=$placeID" +
+                "&key=$key"
+
+        val jsonObj = JSONObject(makeRequest(genURL))
+        val res = jsonObj.getJSONObject("result")
+
+        val itemData: MutableList<String> = mutableListOf()
+        itemData.add(res.getString("name"))
+        itemData.add(query)
+        itemData.add(
+            if (res.has("formatted_phone_number")) {
+                res.getString("formatted_phone_number")
+            } else {
+                "None"
+            }
+        )
+        itemData.add(res.getString("formatted_address"))
+        val loc = res.getJSONObject("geometry").getJSONObject("location")
+        itemData.add("${String.format("%.2f", calcDistance(latitude, longitude, loc.getString("lat").toDouble(), loc.getString("lng").toDouble()))} miles")
+        itemData.add(
+            if (res.has("opening_hours") && res.getJSONObject("opening_hours").has("open_now")) {
+                res.getJSONObject("opening_hours").getString("open_now")
+            } else {
+                "Closed"
+            }
+        )
+
+        return itemData
+    }
+
+    private fun calcDistance (lat1 : Double, long1 : Double, lat2 : Double, long2 : Double) : Double {
+
+        fun toRad (point : Double) : Double {
+            return point / (180 / PI)
+        }
+
+        // Calculates distance in miles between two GPS coordinates
+        val earthRadius = 3959
+
+        val distLat = toRad(lat2 - lat1)
+        val distLong = toRad(long2 - long1)
+
+        val rLat1 = toRad(lat1)
+        val rLat2 = toRad(lat2)
+
+        val a = sin(distLat / 2) * sin(distLat / 2) +
+                sin(distLong / 2) * sin(distLong / 2) * cos(rLat1) * cos(rLat2)
+        val c = 2 * atan2(sqrt(a), sqrt(1 - a))
+
+        return earthRadius * c
+    }
+
+    private fun makeRequest(url: String) : String {
+
+        // needs to be async - can't do it in main thread
+        val res = URL(url).readText()
+        return res
     }
 }

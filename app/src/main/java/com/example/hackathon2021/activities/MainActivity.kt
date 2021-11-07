@@ -22,6 +22,8 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 import com.google.android.gms.location.LocationServices
 import com.example.hackathon2021.util.LocationsJSON
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
@@ -72,6 +74,11 @@ class MainActivity : AppCompatActivity() {
             .addOnFailureListener() { e : Exception ->
                 println("ERROR: $e\nSetting default coordinates to the Ohio Union")
                 LocationsJSON.setDefaultCoords()
+            }
+            .addOnCompleteListener {
+                GlobalScope.launch {
+                    LocationsJSON.getLocations("Food Pantry")
+                }
             }
     }
 
