@@ -9,3 +9,7 @@ Haven connects people to resources such as food pantries, homeless shelters, hea
 We made this app to serve people in need. The past year and a half, many people have been out of work and we wanted to find a way to help them get back on their feet or just to receive som much-needed care.
 
 We initialized state-of-the-art APIs to fetch data not only locally, but nationally. So if you need food, we'll direct you to the best food banks nearby, but if you need 24/7 hotline support, we also have you covered.
+
+# Video
+
+https://user-images.githubusercontent.com/31487160/143623284-db9e3d92-70de-4cc2-8fc1-00f7870d74aa.mp4
